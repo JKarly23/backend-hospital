@@ -18,8 +18,7 @@ class UserModelVS(ModelViewSet):
         try:
             user = CustomAccount.objects.create_superuser(**data)
             user.save()
-        except CustomAccount.DoesNotExist as e:
+        except CustomAccount.DoesNotExist:
             return Response({"error": "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-    

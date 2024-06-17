@@ -37,6 +37,8 @@ LOCAL_APPS = [
     'core.apps.patients.apps.PatientsConfig',
     'core.apps.doctors.apps.DoctorsConfig',
     'core.apps.users.apps.UsersConfig',
+    'core.apps.appointments.apps.AppointmentsConfig',
+    'core.apps.nurses.apps.NursesConfig',
 
 ]
 
