@@ -15,14 +15,13 @@ class DoctorsMVS(ModelViewSet):
     queryset = Doctor.objects.all()
     permission_classes = [IsAdminOrReadOnly]
 
-    def perform_create(self, serializer):
+    """def perform_create(self, serializer):
         datas = {}
         user_type = self.request.data.get('user_type')
         
         serializer_user = UserSerializer(data=self.request.data)
         if serializer_user.is_valid():
             try:
-                
                 user = CustomAccount.objects.create(
                     username=serializer_user.validated_data['username'],
                     first_name=serializer_user.validated_data['first_name'],
@@ -55,7 +54,7 @@ class DoctorsMVS(ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(datas, status=status.HTTP_201_CREATED)
-
+        """
     def list(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.user.is_admin:

@@ -1,9 +1,16 @@
+from django.forms import ValidationError
+from django.shortcuts import get_object_or_404
+from core.apps.doctors.models import Doctor
+from core.apps.nurses.models import Nurse
+from core.apps.patients.models import Patient
 from core.apps.users.models import CustomAccount
 from rest_framework.permissions import IsAdminUser
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from .serializer import UserSerializer
+from rest_framework.decorators import permission_classes
+from rest_framework.views import APIView
 
 
 class UserModelVS(ModelViewSet):
@@ -24,7 +31,7 @@ class UserModelVS(ModelViewSet):
 
 #Por si al bestia se le ocurre hacer el registro de la otra forma
 
-""" class UserAPV(APIView):
+class UserAPV(APIView):
 
     @permission_classes([IsAdminUser])
     def post(self, request):
@@ -95,4 +102,3 @@ class UserModelVS(ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(datas, status=status.HTTP_201_CREATED)
- """

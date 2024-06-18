@@ -70,8 +70,7 @@ This repository contains JSON objects used for testing the API.
 
 ## Appointments
 
-{
-  "consultation_date": "2024-06-18T10:00:00",  
+{  
   "reason_of_visit": "Check-up",               
   "symptoms": "Headache and fatigue",          
   "diagnosis": "Mild flu",                    

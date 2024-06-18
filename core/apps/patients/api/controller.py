@@ -20,7 +20,7 @@ class ClinicHistoryMVS(ModelViewSet):
     queryset = ClinicHistory.objects.all()
     permission_classes = [IsDoctorOrReadOnly]
 
-    def perform_create(self, serializer):
+    """ def perform_create(self, serializer):
         try:
             last_modified = serializer.validated_data.get('last_modified')
             today = datetime.now().date()
@@ -52,7 +52,7 @@ class ClinicHistoryMVS(ModelViewSet):
                 return Response({"Error": "To create a new medical history, a minimum of 5 years must have passed since its last modification."},
                                 status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response({"Error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Error": str(e)}, status=status.HTTP_400_BAD_REQUEST) """
 
 
     def list(self, request, *args, **kwargs):

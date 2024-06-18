@@ -23,8 +23,7 @@ class AppointmentMVS(ModelViewSet):
     serializer_class = AppointmentSerializer
 
     def perform_create(self, serializer):
-        doctor_user = get_object_or_404(CustomAccount,username=self.serializer_class.validated_data.get('doctor'))
-        doctor = get_object_or_404(Doctor,user=doctor_user)
+        doctor = self.request.user
         patient_user = get_object_or_404(CustomAccount,username=self.serializer_class.validated_data.get('patient'))
         patient = get_object_or_404(Patient,user=patient_user)
 
