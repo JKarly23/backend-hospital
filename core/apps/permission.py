@@ -21,9 +21,15 @@ class IsAdminOrReadOnly(permissions.BasePermission):
 
         return request.user.is_staff
     
-class ClinicHistoryPermission(permissions.BasePermission):
+class IsDoctorOrReadOnly(permissions.BasePermission):
 
     def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            if request.method in permissions.SAFE_METHODS:
+                return True
+        return request.user.user_type == "doctors"
+    
+    def has_object_permission(self, request, view, obj):
         if request.user.is_authenticated:
             if request.method in permissions.SAFE_METHODS:
                 return True
