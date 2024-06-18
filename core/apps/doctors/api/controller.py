@@ -7,6 +7,7 @@ from ..models import Doctor
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.exceptions import PermissionDenied
 
 class DoctorsMVS(ModelViewSet):
 
@@ -54,3 +55,43 @@ class DoctorsMVS(ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(datas, status=status.HTTP_201_CREATED)
+
+    def list(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.is_admin:
+                doctors = self.get_queryset()
+            else:
+                raise PermissionDenied(
+                    "You don't have permission to view these records."
+                )
+
+            data = []
+            for doctor in doctors:
+                try:
+                    user = CustomAccount.objects.get(id=doctor.user.id)
+                    
+                    doctor_data = {
+                        'doctor': doctor.id,
+                        'user': {
+                            'id': user.id,
+                            'username': user.username,
+                            'first_name': user.first_name,
+                            'last_name': user.last_name,
+                            'email': user.email,
+                            'phone_number': user.phone_number,
+                            'image': user.image.url if user.image else None,
+                        },
+                        'specialty': doctor.specialty,
+                        'years_experience': doctor.years_experience,
+                        # Include other doctor fields as needed
+                    }
+                    data.append(doctor_data)
+                except Exception as e:
+                    return Response({"Error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response(data, status=status.HTTP_200_OK)
+
+        else:
+            raise PermissionDenied(
+                "You need to be authenticated to view these records."
+            )
