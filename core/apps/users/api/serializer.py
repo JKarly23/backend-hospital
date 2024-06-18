@@ -5,4 +5,4 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = CustomAccount
-        exclude = ['is_admin','is_active','is_staff','is_superuser','user_type']
+        exclude = ['is_admin','is_active','is_staff','is_superuser']

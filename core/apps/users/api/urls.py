@@ -5,5 +5,6 @@ router = DefaultRouter()
 router.register(r'',UserModelVS, basename='users')
 
 urlpatterns = [
-    path('users/',include(router.urls))
+    path('users/',include(router.urls)),
+    #path("insert/user/",UserAPV.as_view(),name="insert_user")
 ]

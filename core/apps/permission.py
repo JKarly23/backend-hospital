@@ -34,3 +34,11 @@ class IsDoctorOrReadOnly(permissions.BasePermission):
             if request.method in permissions.SAFE_METHODS:
                 return True
         return request.user.user_type == "doctors"
+    
+class IsPatient(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.user_type == "patients"
+    
+    def has_object_permission(self, request, view, obj):
+        return request.user.is_authenticated and request.user.user_type == "patients"    

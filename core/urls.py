@@ -25,6 +25,7 @@ urlpatterns = [
     path('',include('core.apps.patients.api.urls')),
     path('',include('core.apps.doctors.api.urls')),
     path('',include('core.apps.nurses.api.urls')),
+    path('',include('core.apps.appointments.api.urls')),
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
